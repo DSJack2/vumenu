@@ -1,8 +1,11 @@
 # VUMenu
 
 VUMenu is a new text-based messaging app for providing students with the menus of various dining halls around campus. It works in a very simple way. A user will text the server the name of the campus dining option, and time of day (breakfast, lunch, dinner) and the server responds with all of the items on the menu for that meal period. Entrees, sides, and desserts will be broken down into subcategories and show them in an easy to read format for mobile phones.
-From personal experience and the potential users I have interviewed, I believe there is a need for another method for obtaining the daily menus for campus dining halls. The current app often has unexpected crashes and can give incorrect information about what food is available. The full site is hard to use on a mobile phone so the next best option would be using texts. It doesn’t rely on having a data connection and many students are texting frequently anyway. 
-Some features that are going to be implemented are things such as being able to find vegetarian, gluten-free or vegan options, sending an automated text to users when large specials such as S.S. Rand and 
+
+From personal experience and the potential users I have interviewed, I believe there is a need for another method for obtaining the daily menus for campus dining halls. The current app often has unexpected crashes and can give incorrect information about what food is available. The full site is hard to use on a mobile phone so the next best option would be using texts. It doesn’t rely on having a data connection and many students are texting frequently anyway.  The excuse “I don’t have the app” is no longer a reason for someone to know what the menu options for the day are.
+
+Some features that are going to be implemented are things such as being able to find vegetarian, gluten-free or vegan options, sending an automated text to users when large specials such as S.S. Rand and Commons Ball. Additionally, users will be able to register their favorite rotating dishes and be notified any time they are available on campus. This way, users will be informed about their favorite meals and be more inclined to stay on campus. 
+
 
 
 #Questions
