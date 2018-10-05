@@ -32,6 +32,7 @@ Some features that are going to be implemented are things such as being able to 
 #Answers
 
 ##Question 1: 
+
   A1: I walk into wherever I wanna eat and see what they got. Or by word of mouth
   
   A2: I ask my friends or check the online portal
@@ -39,6 +40,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: Although there is variety, I feel like the food options on campus are definitely lacking. Lunch provides a good assortment of options,      particularly at Rand. However for dinner there are hardly any options.
   
 ##Question 2: 
+
   A1: More or less. It's fine but could be improved to make menus more easily accessible.
   
   A2: No, the mobile app is terrible and it is not always up to date.
@@ -46,6 +48,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: I am not too happy with the current method. I feel as though there are limited options and times for eating, which are tough to abide by with busy schedules.
 
 ##Question 3: 
+
   A1: Pretty familiar but don't know all of them off the top of my head. A quick Google search usually tells me
   
   A2: Not very familiar, there are different opening and closing time for various places on campus.
@@ -53,6 +56,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: I know what all the hours are for dining halls on campus.
   
 ##Question 4: 
+
   A1: Almost never. I only depend on word of mouth.
   
   A2: I would say that my friends and I check about half the time.
@@ -60,6 +64,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: Rarely check the menus.
   
 ##Question 5: 
+
   A1: Yes, if I hear there's a special that I like, I'll probably eat there since it can be hard to find variation in campus dining options.
   
   A2: I would say 6 out 10 times it plays a role.
@@ -67,6 +72,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: Only for Kissam/EBI.
   
 ##Question 6: 
+
   A1: What's being served and when.
   
   A2: How close is it to where I am, type of food, and amount of food I will get.
@@ -74,6 +80,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: What time it is and what day of the week.
   
 ##Question 7: 
+
   A1: An easier way to know the menu options would be nice. The campus dining app is pretty useless.
   
   A2: Tell me wait times.
@@ -81,6 +88,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: Rand’s hours need to be improved, Rand during lunch needs to be faster, meal periods are highly restrictive, more all you can eat options (or at least for certain things i.e. Rand breakfast). Tower’s munchie mart should be 24 hrs on weekends, bring back Chick-Fil-A, better coffee on campus.
   
 ##Question 8: 
+
   A1: Rand
   
   A2: Rand
@@ -88,6 +96,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: Rand
   
 ##Question 9: 
+
   A1: Yes
   
   A2: Yes
@@ -95,6 +104,7 @@ Some features that are going to be implemented are things such as being able to 
   A3: No
   
 ##Question 10: 
+
   A1: Mainly through word of mouth or the occasional flyer.
   
   A2: My Friends.
