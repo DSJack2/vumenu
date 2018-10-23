@@ -1,4 +1,4 @@
-# VUMenu
+# VUMenu (+1 615 997 1405)
 
 VUMenu is a new text-based messaging app for providing students with the menus of various dining halls around campus. It works in a very simple way. A user will text the server the name of the campus dining option, and time of day (breakfast, lunch, dinner) and the server responds with all of the items on the menu for that meal period. Entrees, sides, and desserts will be broken down into subcategories and show them in an easy to read format for mobile phones.
 
