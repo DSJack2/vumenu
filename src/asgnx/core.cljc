@@ -1,32 +1,16 @@
- (ns asgnx.core
-  (:require [clojure.string :as string]
-            [clojure.core.async :as async :refer [go chan <! >!]]
-            [asgnx.kvstore :as kvstore
-             :refer [put! get! list! remove!]]))
-
-
-;; Do not edit!
-;; A def for the course home page URL.
-(def cs4278-brightspace "https://brightspace.vanderbilt.edu/d2l/home/85892")
-
-
-;; Do not edit!
-;; A map specifying the instructor's office hours that is keyed by day of the week.
-(def instructor-hours {"tuesday"  {:start    8
-                                   :end      10
-                                   :location "the chairs outside of the Wondry"}
-
-                       "thursday" {:start    8
-                                   :end      10
-                                   :location "the chairs outside of the Wondry"}})
+(ns asgnx.core
+ (:require [clojure.string :as string]
+           [clojure.core.async :as async :refer [go chan <! >!]]
+           [asgnx.kvstore :as kvstore
+            :refer [put! get! list! remove!]]))
 
 
 ;; This is a helper function that you might want to use to implement
 ;; `cmd` and `args`.
 (defn words [msg]
-  (if msg
-      (string/split msg #" ")
-      []))
+ (if msg
+     (string/split msg #" ")
+     []))
 
 ;; Asgn 1.
 ;;
@@ -39,7 +23,7 @@
 ;; complete specification.
 ;;
 (defn cmd [msg]
-  (first (words msg)))
+ (first (words msg)))
 
 
 ;; Asgn 1.
@@ -53,7 +37,7 @@
 ;; complete specification.
 ;;
 (defn args [msg]
-  (rest (words msg)))
+ (rest (words msg)))
 
 ;; Asgn 1.
 ;;
@@ -68,88 +52,7 @@
 ;; complete specification.
 ;;
 (defn parsed-msg [msg]
-  {:cmd (cmd msg), :args (args msg)})
-
-;; Asgn 1.
-;;
-;; @Todo: Fill in this function to prefix the first of the args
-;; in a parsed message with "Welcome " and return the result.
-;;
-;; Example:
-;;
-;; (welcome {:cmd "welcome" :args ["foo"]}) => "Welcome foo"
-;;
-;; See the welcome-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn welcome [pmsg]
-  (str "Welcome " (first (get pmsg :args))))
-
-;; Asgn 1.
-;;
-;; @Todo: Fill in this function to return the CS 4278 home page.
-;; Use the `cs4278-brightspace` def to produce the output.
-;;
-;; See the homepage-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn homepage [_]
-  cs4278-brightspace)
-
-
-;; Asgn 1.
-;;
-;; @Todo: Fill in this function to convert from 0-23hr format
-;; to AM/PM format.
-;;
-;; Example: (format-hour 14) => "2pm"
-;;
-;; See the format-hour-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn format-hour [h]
-  (cond (= h 0) "12am"
-        (= h 12) "12pm"
-        (< h 12) (str (mod h 12) "am")
-        (>= h 12) (str (mod h 12) "pm")))
-
-;; Asgn 1.
-;;
-;; @Todo: This function should take a map in the format of
-;; the values in the `instructor-hours` map (e.g. {:start ... :end ... :location ...})
-;; and convert it to a string format.
-;;
-;; Example:
-;; (formatted-hours {:start 8 :end 10 :location "the chairs outside of the Wondry"}))
-;; "from 8am to 10am in the chairs outside of the Wondry"
-;;
-;; You should use your format-hour function to implement this.
-;;
-;; See the formatted-hours-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn formatted-hours [hours]
-  (str "from " (format-hour (get hours :start)) " to " (format-hour (get hours :end)) " in " (get hours :location)))
-
-;; Asgn 1.
-;;
-;; @Todo: This function should lookup and see if the instructor
-;; has office hours on the day specified by the first of the `args`
-;; in the parsed message. If so, the function should return the
-;; `formatted-hours` representation of the office hours. If not,
-;; the function should return "there are no office hours on that day".
-;; The office hours for the instructor should be obtained from the
-;; `instructor-hours` map.
-;;
-;; You should use your formatted-hours function to implement this.
-;;
-;; See the office-hours-for-day-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn office-hours [{:keys [args cmd]}]
-  (if (not= nil (instructor-hours (first args))) (formatted-hours (get instructor-hours (first args)))
-   "there are no office hours on that day"))
-
+ {:cmd (cmd msg), :args (args msg)})
 
 ;; Asgn 2.
 ;;
@@ -161,7 +64,7 @@
 ;; :send.
 ;;
 (defn action-send-msg [to msg]
-  {:to to, :msg msg, :action :send})
+ {:to to, :msg msg, :action :send})
 
 ;; Asgn 2.
 ;;
@@ -179,7 +82,7 @@
 ;; return output
 ;;
 (defn action-send-msgs [people msg]
-  (map #(action-send-msg % msg) people))
+ (map #(action-send-msg % msg) people))
 
 ;; Asgn 2.
 ;;
@@ -192,7 +95,7 @@
 ;; :assoc-in.
 ;;
 (defn action-insert [ks v]
-  {:action :assoc-in, :ks ks, :v v})
+ {:action :assoc-in, :ks ks, :v v})
 
 ;; Asgn 2.
 ;;
@@ -216,7 +119,7 @@
 ;;  (action-insert [:foo :bar :c] 32)]
 ;;
 (defn action-inserts [prefix ks v]
-  (map #(action-insert (conj prefix %) v) ks))
+ (map #(action-insert (conj prefix %) v) ks))
 
 ;; Asgn 2.
 ;;
@@ -227,7 +130,7 @@
 ;; :dissoc-in.
 ;;
 (defn action-remove [ks]
-  {:action :dissoc-in, :ks ks})
+ {:action :dissoc-in, :ks ks})
 
 
 ;; Asgn 3.
@@ -248,272 +151,96 @@
 ;; expectations on how your code operates
 ;;
 (defn experts-register [experts topic id info]
-  (action-insert [:expert topic id] info))
+ (action-insert [:expert topic id] info))
 
-;; Add a dining hall
+;; Add a campus dining option to the current state
 (defn dining-register [dining id]
-  (action-insert [:dining id] {}))
+ (action-insert [:dining id] {}))
 
-;; Manage the hours of a particular dining option
+;; Manage the hours of a particular dining option by day of the week
 (defn create-hours [dining id day hours]
-  (action-insert [:dining id day hours] {}))
+ (action-insert [:dining id day] {:time hours}))
 
+;; Create/manage menu items for a specific dining option on a specific day of the week
+(defn create-item [dining id day item type]
+ (action-insert [:dining id :menu day item] {:type type}))
 
-;; Asgn 3.
-;;
-;; @Todo: Create a function called "experts-unregister"
-;; that takes the current application `state`, a `topic`
-;; and the expert's `id` (e.g., unique name) and then
-;; removes the expert from the list of experts on that topic.
-;; Look at the associated test to see the expected function signature.
-;;
-;; Your function should NOT directly change the application state
-;; to unregister them but should instead return a list of the
-;; appropriate side-effects (above) to make the registration
-;; happen.
-;;
-;; See the integration test in See handle-message-test for the
-;; expectations on how your code operates
-;;
-(defn experts-unregister [experts topic id]
-  (action-remove [:expert topic id]))
-
-(defn experts-question-msg [experts question-words]
-  (str "Asking " (count experts) " expert(s) for an answer to: \""
-       (string/join " " question-words) "\""))
-
-;; Asgn 3.
-;;
-;; @Todo: Create a function called "ask-experts"
-;; that takes two parameters:
-;;
-;; 1. the list of experts on the topic
-;; 2. a parsed message with the format:
-;;    {:cmd "ask"
-;;     :user-id "phone number that sent the message"
-;;     :args [topic question-word1 question-word2 ... question-wordN]}
-;;
-;; The sender of the message will be identified by their phone number
-;; in the user-id parameter. This is the phone number that you will need
-;; to forward answers to the question to.
-;;
-;; The parsed message is generated by breaking up the words in the ask
-;; text message. For example, if someone sent the message:
-;;
-;; "ask food what is the best pizza in nashville"
-;;
-;; The parsed message would be:
-;;
-;; {:cmd "ask"
-;;  :user-id "+15555555555"
-;;  :args ["food" "what" "is" "the" "best" "pizza" "in" "nashville"]}
-;;
-;; This function needs to return a list with two elements:
-;; [[actions...] "response to asker"]
-;;
-;; The actions in the list are the *side effects* that need to take place
-;; to ask the question (e.g., sending messages to the experts). The string
-;; is the response that is going to be sent back to the person that asked
-;; the question (e.g. "Asking 2 expert(s) for an answer to ....").
-;;
-;; The correct string response to a valid question should be produced with
-;; the `experts-question-msg` function above.
-;;
-;; Think about how you are going to figure out where to route messages
-;; when an expert answers (see the conversations query) and make sure you
-;; handle the needed side effect for storing the conversation state.
-;;
-;; If there are no registered experts on a topic, you should return an
-;; empty list of actions and "There are no experts on that topic."
-;;
-;; If there isn't a question, you should return "You must ask a valid question."
-;;
-;; Why this strange architecture? By returning a list of the actions to take,
-;; rather than directly taking that action, we can keep this function pure.
-;; Pure functions are WAY easier to test / maintain. Also, we can isolate our
-;; messy impure action handling at the "edges" of the application, where it is
-;; easier to track and reason about.
-;;
-;; You should look at `handle-message` to get an idea of the way that this
-;; function is going to be used, its expected signature, and how the actions
-;; and output are going to work.
-;;
-;; See the integration test in See handle-message-test for the
-;; expectations on how your code operates
-;;
-(defn ask-experts [experts {:keys [args user-id]}]
-  (cond (empty? experts) [[] "There are no experts on that topic."]
-        (empty? (rest args)) [[] "You must ask a valid question."]
-        :else [[(into {} (action-send-msgs experts (clojure.string/join " " (rest args))))
-                (into {} (action-inserts [:conversations] experts {:last-question (clojure.string/join " " (rest args)) :asker user-id}))]
-               (experts-question-msg experts (rest args))]))
+;; Funciton that sends the user the hours for a specific dining option, and sends
+;; "Working..." while it is searching for the hours. If there are no hours
+;; set for the dining option yet, the user recieves "There are no hours listed for this dining option."
 
 (defn get-hours [dining {:keys [args user-id]}]
-  (cond (empty? (last args)) [[] "You must specify a day of the week."]
-        ;(empty? dining) [[] "There are no hours listed for this dining option."]
-        :else [[(into {} (action-send-msg user-id (str "The hours on " (last args) " for " (first args) " are " (get-in dining [(last args)]))))] "Working..."]))
+ (cond
+       (empty? dining) [[] "There are no hours listed for this dining option."]
+       :else [[(into {} (action-send-msg user-id (str "The hours on " (last args) " for " (first args) " are " (get-in dining [(last args) :time]))))] "Working..."]))
 
-;; Asgn 3.
-;;
-;; @Todo: Create a function called "answer-question"
-;; that takes two parameters:
-;;
-;; 1. the last conversation describing the last question that was routed
-;;    to the expert
-;; 2. a parsed message with the format:
-;;    {:cmd "ask"
-;;     :user-id "+15555555555"
-;;     :args [topic answer-word1 answer-word2 ... answer-wordN]}
-;;
-;; The parsed message is generated by breaking up the words in the ask
-;; text message. For example, if someone sent the message:
-;;
-;; "answer joey's house of pizza"
-;;
-;; The conversation will be data that you store as a side-effect in
-;; ask-experts. You probably want this data to be information about the
-;; last question asked to each expert. See the "think about" comment above.
-;;
-;; The parsed message would be:
-;;
-;; {:cmd "answer"
-;;  :user-id "+15555555555"
-;;  :args ["joey's" "house" "of" "pizza"]}
-;;
-;; This function needs to return a list with two elements:
-;; [[actions...] "response to expert answering"]
-;;
-;; The actions in the list are the *side effects* that need to take place
-;; to send the answer to the original question asker. The string
-;; is the response that is going to be sent back to the expert answering
-;; the question.
-;;
-;; Think about how you are going to figure out where to route messages
-;; when an expert answers (see the conversations query) and make sure you
-;; handle the needed side effect for storing the conversation state.
-;;
-;; Why this strange architecture? By returning a list of the actions to take,
-;; rather than directly taking that action, we can keep this function pure.
-;; Pure functions are WAY easier to test / maintain. Also, we can isolate our
-;; messy impure action handling at the "edges" of the application, where it is
-;; easier to track and reason about.
-;;
-;; You should look at `handle-message` to get an idea of the way that this
-;; function is going to be used, its expected signature, and how the actions
-;; and output are going to work.
-;;
-;; See the integration test in See handle-message-test for the
-;; expectations on how your code operates
-;;
-(defn answer-question [conversation {:keys [args]}]
-  (cond (empty? args) [[] "You did not provide an answer."]
-        (empty? conversation) [[] "You haven't been asked a question."]
-        :else [[(into {}
-                      (action-send-msg (conversation :asker)
-                                       (clojure.string/join " " args)))]
-               "Your answer was sent."]))
+;; Funciton that sends the user the menu items for a specific dining option on a specific day
+;; While searching for the menu options, the user recieves "Looking for menu..."
 
-;; Asgn 3.
-;;
-;; @Todo: Create a function called "add-expert"
-;; that takes two parameters:
-;;
-;; 1. the current list of experts on the topic
-;; 2. a parsed message with the format:
-;;    {:cmd "expert"
-;;     :user-id "+15555555555"
-;;     :args [topic]
-;;
-;;
-;; The parsed message is generated by breaking up the words in the expert
-;; text message. For example, if someone sent the message:
-;;
-;; "expert food"
-;;
-;; The parsed message would be:
-;;
-;; {:cmd "expert"
-;;  :user-id "+15555555555"))
-;;  :args ["food"]}
-;;
-;; This function needs to add "sarah" to the list of experts on "food" and
-;; associate her phone number with her ID.
-;;
-;; This function needs to return a list with two elements:
-;; [[actions...] "response to the person adding themselves as an expert"]
-;;
-;; The actions in the list are the *side effects* that need to take place
-;; to add the person as an expert on the topic (hint: result of calling experts-register). The string
-;; is the response that is going to be sent back to the person adding themselves
-;; as an expert.
-;;
-;; You should look at `handle-message` to get an idea of the way that this
-;; function is going to be used, its expected signature, and how the actions
-;; and output are going to work.
-;;
-;; See the integration test in See handle-message-test for the
-;; expectations on how your code operates
+(defn get-menu [items {:keys [args user-id]}]
+ [[into {} (action-send-msg user-id (str (doseq [keyval items] ((key keyval) (val keyval)))))] "Looking for menu..."])
 
-(defn add-expert [experts {:keys [args user-id]}]
-  [[(experts-register experts (first args) user-id "person")] (str user-id " is now an expert on " (first args) ".")])
+;; Function to add a campus dining option to the current state, and sends the
+;; user confirmation when it is finished doing so ("x is now a campus dining option")
 
 (defn add-dining [dining {:keys [args]}]
-  [[(dining-register dining (first args))] (str (first args) " is now a campus dining option.")])
+ [[(dining-register dining (first args))] (str (first args) " is now a campus dining option.")])
+
+;; Function to add/edit hours for a campus dining option for a specific day.
+;; User recieves a message saying "Hours for x have been updated" after the action
+;; has been executed
 
 (defn edit-hours [dining {:keys [args]}]
  [[(create-hours dining (first args) (first (rest args)) (last args))] (str "Hours for " (first args) " have been updated.")])
 
+;; Function to add/edit menu items for a dining option for a specific day.
+;; User recieves a message saying "<item> is now a menu item for <dining option> on <day>"
+;; when the action is completed.
+
+(defn add-item [dining {:keys [args]}]
+ [[(create-item dining (first args) (first (rest args)) (first (rest (rest args))) (last args))] (str (first (rest (rest args))) " is now a menu item for " (first args) " on " (first (rest args)))])
+
 ;; Don't edit!
 (defn stateless [f]
-  (fn [_ & args]
-    [[] (apply f args)]))
+ (fn [_ & args]
+   [[] (apply f args)]))
 
 
 (def routes {"add-dining" add-dining
              "edit-hours" edit-hours
+             "add-item" add-item
              "hours"    get-hours
-             "expert"   add-expert
-             "ask"      ask-experts
-             "answer"   answer-question
+             "menu"     get-menu
              "default"  [[] (str "Invalid Command.")]})
-
-;; Asgn 3
-;;
-;; @Todo: Add mappings of the cmds "expert", "ask", and "answer" to
-;; to the `routes` map so that the functions that you
-;; created will be invoked when the corresponding text message
-;; commands are received.
-;;})
-
-;; Don't edit!
-(defn experts-on-topic-query [state-mgr pmsg]
-  (let [[topic]  (:args pmsg)]
-    (list! state-mgr [:expert topic])))
-
-;; Don't edit!
-(defn conversations-for-user-query [state-mgr pmsg]
-  (let [user-id (:user-id pmsg)]
-    (get! state-mgr [:conversations user-id])))
 
 ;; query to retrieve the hours of the specified dining option
 (defn hours-for-dining-query [state-mgr pmsg]
-  (let [dining (:args pmsg)]
-    (get! state-mgr [:dining (first (:args pmsg))])))
+ (let [dining (:args pmsg)]
+   (get! state-mgr [:dining (first (:args pmsg))])))
+
+;; query to retrieve menu items for a dining option on a specific day
+(defn items-for-dining-query [state-mgr pmsg]
+ (let [items (:args pmsg)]
+   (get! state-mgr [:dining (first (:args pmsg)) :menu (last args)])))
+
+;; query to add items to the state
+(defn add-item-query [state-mgr pmsg]
+ (let [items (:args pmsg)]
+   (get! state-mgr [:dining (first (:args pmsg))])))
 
 ;; Don't edit!
 (def queries
-  {"expert" experts-on-topic-query
-   "ask"    experts-on-topic-query
-   "answer" conversations-for-user-query
-   "edit-hours" hours-for-dining-query
-   "hours"  hours-for-dining-query})
+ {
+  "edit-hours" hours-for-dining-query
+  "hours"  hours-for-dining-query})
+
 
 ;; Don't edit!
 (defn read-state [state-mgr pmsg]
-  (go
-    (if-let [qfn (get queries (:cmd pmsg))]
-      (<! (qfn state-mgr pmsg))
-      {})))
+ (go
+   (if-let [qfn (get queries (:cmd pmsg))]
+     (<! (qfn state-mgr pmsg))
+     {})))
 
 
 ;; Asgn 1.
@@ -545,72 +272,72 @@
 
 ;; Don't edit!
 (defn output [o]
-  (second o))
+ (second o))
 
 
 ;; Don't edit!
 (defn actions [o]
-  (first o))
+ (first o))
 
 
 ;; Don't edit!
 (defn invoke [{:keys [effect-handlers] :as system} e]
-  (go
-    (println "    Invoke:" e)
-    (if-let [action (get effect-handlers (:action e))]
-      (do
-        (println "    Invoking:" action "with" e)
-        (<! (action system e))))))
+ (go
+   (println "    Invoke:" e)
+   (if-let [action (get effect-handlers (:action e))]
+     (do
+       (println "    Invoking:" action "with" e)
+       (<! (action system e))))))
 
 
 ;; Don't edit!
 (defn process-actions [system actions]
-  (go
-    (println "  Processing actions:" actions)
-    (let [results (atom [])]
-      (doseq [action actions]
-        (let [result (<! (invoke system action))]
-          (swap! results conj result)))
-      @results)))
+ (go
+   (println "  Processing actions:" actions)
+   (let [results (atom [])]
+     (doseq [action actions]
+       (let [result (<! (invoke system action))]
+         (swap! results conj result)))
+     @results)))
 
 
 ;; Don't edit!
 (defn handle-message
-  "
-    This function orchestrates the processing of incoming messages
-    and glues all of the pieces of the processing pipeline together.
+ "
+   This function orchestrates the processing of incoming messages
+   and glues all of the pieces of the processing pipeline together.
 
-    The basic flow to handle a message is as follows:
+   The basic flow to handle a message is as follows:
 
-    1. Create the router that will be used later to find the
-       function to handle the message
-    2. Parse the message
-    3. Load any saved state that is going to be needed to process
-       the message (e.g., querying the list of experts, etc.)
-    4. Find the function that can handle the message
-    5. Call the handler function with the state from #3 and
-       the message
-    6. Run the different actions that the handler returned...these actions
-       will be bound to different implementations depending on the environemnt
-       (e.g., in test, the actions aren't going to send real text messages)
-    7. Return the string response to the message
+   1. Create the router that will be used later to find the
+      function to handle the message
+   2. Parse the message
+   3. Load any saved state that is going to be needed to process
+      the message (e.g., querying the list of experts, etc.)
+   4. Find the function that can handle the message
+   5. Call the handler function with the state from #3 and
+      the message
+   6. Run the different actions that the handler returned...these actions
+      will be bound to different implementations depending on the environemnt
+      (e.g., in test, the actions aren't going to send real text messages)
+   7. Return the string response to the message
 
-  "
-  [{:keys [state-mgr] :as system} src msg]
-  (go
-    (println "=========================================")
-    (println "  Processing:\"" msg "\" from" src)
-    (let [rtr    (create-router routes)
-          _      (println "  Router:" rtr)
-          pmsg   (assoc (parsed-msg msg) :user-id src)
-          _      (println "  Parsed msg:" pmsg)
-          state  (<! (read-state state-mgr pmsg))
-          _      (println "  Read state:" state)
-          hdlr   (rtr pmsg)
-          _      (println "  Hdlr:" hdlr)
-          [as o] (hdlr state pmsg)
-          _      (println "  Hdlr result:" [as o])
-          arslt  (<! (process-actions system as))
-          _      (println "  Action results:" arslt)]
-      (println "=========================================")
-      o)))
+ "
+ [{:keys [state-mgr] :as system} src msg]
+ (go
+   (println "=========================================")
+   (println "  Processing:\"" msg "\" from" src)
+   (let [rtr    (create-router routes)
+         _      (println "  Router:" rtr)
+         pmsg   (assoc (parsed-msg msg) :user-id src)
+         _      (println "  Parsed msg:" pmsg)
+         state  (<! (read-state state-mgr pmsg))
+         _      (println "  Read state:" state)
+         hdlr   (rtr pmsg)
+         _      (println "  Hdlr:" hdlr)
+         [as o] (hdlr state pmsg)
+         _      (println "  Hdlr result:" [as o])
+         arslt  (<! (process-actions system as))
+         _      (println "  Action results:" arslt)]
+     (println "=========================================")
+     o)))
